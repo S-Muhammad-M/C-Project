@@ -1090,34 +1090,34 @@ void city(){
 		cout << "\n\t\t____________________________________________________________________\n\n\n";
 		cout << "\n\t\t               WELCOME TO HOSPITAL APPOINTMENT SYSTEM               \n\n\n";
 	    cout <<" \n\t\t               Successfully Logged In as ADMIN\n\n";
-		cout << "\n\t\t_____________________  ADMIN OPTIONS -> City   _____________________\n\n\n";
+		cout << "\n\t\t_____________________  ADMIN OPTIONS -> City Management  _____________________\n\n\n";
 		cout << "\n\t|Press 1 to enter city			|"
 			 << "\n\t|Press 2 to display city		|"
 			 << "\n\t|Press 3 to edit city			|"
 			 << "\n\t|Press 4 to go back to ADMIN OPTION	|"
-			 << "\n\n\tEnter choice: ";
+			 << "\n\n\t\t\tEnter choice: ";
 		choice = getche();
 			 
 		switch(choice){
 			case '1':
 				city_add();
 				city_save();
-				getchar();
+				system("pause");
 				break;
 			case '2':
 				city_display();			
-				getchar();
+				system("pause");
 				break;
 			case '3':
 				city_edit();
-				getchar();
+				system("pause");
 				break;
 			case '4':
 				num = 1;
-				break;
+				system("pause");
 			default:
 				cout << "\n\tInvalid Input\n";
-				getchar();
+				system("pause");
 				getchar();
 		}
 	}while(num == 0);
@@ -1132,7 +1132,7 @@ void hospital(){
 		cout << "\n\t\t____________________________________________________________________\n\n\n";
 		cout << "\n\t\t               WELCOME TO HOSPITAL APPOINTMENT SYSTEM               \n\n\n";
 	    cout <<" \n\t\t               Successfully Logged In as ADMIN\n\n";
-		cout << "\n\t\t____________________  ADMIN OPTIONS -> Hospital  ___________________\n\n\n";
+		cout << "\n\t\t____________________  ADMIN OPTIONS -> Hospital Management ___________________\n\n\n";
 		cout <<	"\n\t|Press 1 to enter hospital		|"
 			 <<	"\n\t|Press 2 to display hospital		|"
 			 <<	"\n\t|Press 3 to edit hospital		|"
@@ -1207,10 +1207,13 @@ void hospital_load(){
 
 void city_add(){
 	City newCity;
-	cout << "\tAdd city name: "; cin >> newCity.cityName;
+	
+	cout << "\n\n\t-- Add City Information --\n ";
+	cout << "\t__________________________\n ";
+	cout << "\n\n\tEnter City Name: "; cin >> newCity.cityName;
 	newCity.cityID = cityCount + 1;
 	cities[cityCount++] = newCity;
-	cout << "\n\tCity successfully saved! City ID: " << cityCount;
+	cout << "\n\tCity successfully saved [" << cityCount << "-" << newCity.cityName<<"]\n";
 }
 
 void hospital_add(){
@@ -1218,7 +1221,8 @@ void hospital_add(){
 	int cityID;
 	City temp;
 
-	cout << "\n\tEnter City id: "; cin >> cityID;
+	cout << "\n\n\t-- Add Hospital Information --:\n ";
+	cout << "\n\tEnter City ID: "; cin >> cityID;
 	temp = getCityByCityID(cityID);
 	if (temp.cityID > 0){
 		cout <<"\t\t\t(" << temp.cityName<<")";
@@ -1232,17 +1236,17 @@ void hospital_add(){
 	}
 	
 	cin.ignore();
-	cout << "\n\tEnter hospital name: "; cin.getline(newHospital.hospitalName,20);
-	cout << "\tEnter hospital address: "; cin.getline(newHospital.hospitalAddress,50);
+	cout << "\n\tEnter Hospital Name: "; cin.getline(newHospital.hospitalName,20);
+	cout << "\tEnter Hospital Address: "; cin.getline(newHospital.hospitalAddress,50);
 	int status = 1;
 	newHospital.hospitalID = hospitalCount + 1;
 	hospitals[hospitalCount++] = newHospital;
-	cout << "\n\tHospital successfully saved! Hospital ID: " << hospitalCount;
+	cout << "\n\tHospital successfully saved [" << hospitalCount << "-" << newHospital.hospitalName <<"]" ;
 }
 
 void hospital_display(){
 	if (hospitalCount == 0){
-        cout << "\tNo registered hospitals found!\n";
+        cout << "\tNo registered hospital found!\n";
         getchar();
     }
     else {
@@ -1261,12 +1265,16 @@ void hospital_display(){
 }
 
 void city_display(){
+	
+	cout << "\n\n\t-- Cities --\n ";
+	cout << "\t________________\n ";
 	if (cityCount == 0){
         cout << "\tNo cities found!\n";
         getchar();
     }
     else {
     	cout << endl;
+    	cout << "\t___________________________________________\n";
     	cout <<setw(20) <<"City ID" <<setw(20) <<"City Name" << endl;
     	cout << "\t___________________________________________\n";
         for (int i = 0; i < cityCount; i++) {
@@ -1278,7 +1286,8 @@ void city_display(){
 }
 
 void city_edit(){
-	
+	cout << "\n\n\t-- Edit City--\n ";
+	cout << "\t___________________\n ";
 	if (cityCount == 0){
         cout << "\tNo registered cities found!\n";
         getchar();
@@ -1291,7 +1300,7 @@ void city_edit(){
 
 	cout << "\n\tEnter City id: "; cin >> cityID;
 	temp = getCityByCityID(cityID);
-	if (temp.cityID > 0){
+	if (temp.cityID == cityID){
 		cout <<"\t\t\t(" << temp.cityName<<")";
 	}
 	else
@@ -1321,8 +1330,9 @@ void city_edit(){
 			else
 				cout << "ERROR\n";				
 
-				cout << "\n\tCity Updated!"; 
+
 			}
+			cout << "\n\tCity successfully updated!";
 }
 
 void hospital_edit(){
